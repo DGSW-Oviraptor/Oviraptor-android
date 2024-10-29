@@ -10,7 +10,7 @@ suspend fun register(email : String, name : String, password : String): String? 
         try {
             val authService = Client.authService
             val request = RegisterRequest(email, name, password)
-            val response = authService.register(request)
+            authService.register(request)
             "success"
         } catch (e: Exception) {
             e.printStackTrace()
