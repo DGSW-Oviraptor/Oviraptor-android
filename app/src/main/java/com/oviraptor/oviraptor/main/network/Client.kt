@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.user.network
+package com.oviraptor.oviraptor.main.network
 
 import com.oviraptor.oviraptor.BuildConfig
 import retrofit2.Retrofit
@@ -6,8 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Client {
     private var retrofit: Retrofit? = null
-
-
     fun getClient(baseUrl: String): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
@@ -18,8 +16,8 @@ object Client {
         return retrofit!!
     }
 
-    val userService: UserService by lazy {
+    val chatService: ChatService by lazy {
         val url = BuildConfig.BASE_URL
-        getClient(url).create(UserService::class.java)
+        getClient(url).create(ChatService::class.java)
     }
 }
