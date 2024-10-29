@@ -1,12 +1,12 @@
 package com.iszero.dgsw_chatting.network.auth
 
-data class LoginResponse (
+data class UserResponse (
     val status : Int,
     val state : String,
     val message : String,
-    val data : LoginResponseData
+    val data : UserResponseData
 )
-data class LoginResponseData (
+data class UserResponseData (
     val accessToken : String,
     val refreshToken : String
 )
