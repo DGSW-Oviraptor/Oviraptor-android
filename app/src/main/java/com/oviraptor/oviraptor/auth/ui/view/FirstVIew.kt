@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.oviraptor.oviraptor.nav.NavGroup
 
 @Composable
 fun FirstView(navController : NavController){
@@ -27,7 +28,7 @@ fun FirstView(navController : NavController){
             fontSize = 100.sp,
         )
         Button(
-            onClick = {TODO("로그인 화면 이동")},
+            onClick = {navController.navigate(NavGroup.LOGIN)},
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-120).dp)
@@ -36,7 +37,7 @@ fun FirstView(navController : NavController){
             Text(text = "로그인")
         }
         Button(
-            onClick = {TODO("회원가입 화면 이동")},
+            onClick = {navController.navigate(NavGroup.REGISTER)},
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-40).dp)
