@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.auth.network
+package com.oviraptor.oviraptor.user.network
 
 import com.iszero.dgsw_chatting.network.auth.RegisterRequest
 import com.iszero.dgsw_chatting.network.auth.LoginRequest
@@ -6,7 +6,7 @@ import com.iszero.dgsw_chatting.network.auth.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface AuthService {
+interface UserService {
     @POST("user/login")
     suspend fun login(@Body request: LoginRequest): LoginResponse
 

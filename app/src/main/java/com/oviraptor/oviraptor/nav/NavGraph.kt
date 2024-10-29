@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.oviraptor.oviraptor.auth.ui.view.FirstView
-import com.oviraptor.oviraptor.auth.ui.view.LoginView
-import com.oviraptor.oviraptor.auth.ui.view.RegisterView
+import com.oviraptor.oviraptor.user.ui.view.FirstView
+import com.oviraptor.oviraptor.user.ui.view.LoginView
+import com.oviraptor.oviraptor.user.ui.view.RegisterView
 
 @Composable
 fun NavGraph(navController: NavHostController) {

@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.auth.userinfo
+package com.oviraptor.oviraptor.user.userinfo
 
 import android.content.Context
 import kotlinx.coroutines.flow.first

@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.auth.network
+package com.oviraptor.oviraptor.user.network
 
 import com.oviraptor.oviraptor.BuildConfig
 import retrofit2.Retrofit
@@ -18,8 +18,8 @@ object Client {
         return retrofit!!
     }
 
-    val authService: AuthService by lazy {
+    val authService: UserService by lazy {
         val url = BuildConfig.BASE_URL
-        getClient(url).create(AuthService::class.java)
+        getClient(url).create(UserService::class.java)
     }
 }

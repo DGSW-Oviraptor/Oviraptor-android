@@ -1,10 +1,10 @@
-package com.oviraptor.oviraptor.auth.network.api
+package com.oviraptor.oviraptor.user.network.api
 
 import android.content.Context
 import com.iszero.dgsw_chatting.network.auth.LoginRequest
-import com.oviraptor.oviraptor.auth.network.Client
-import com.oviraptor.oviraptor.auth.userinfo.saveAccToken
-import com.oviraptor.oviraptor.auth.userinfo.saveRefToken
+import com.oviraptor.oviraptor.user.network.Client
+import com.oviraptor.oviraptor.user.userinfo.saveAccToken
+import com.oviraptor.oviraptor.user.userinfo.saveRefToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
