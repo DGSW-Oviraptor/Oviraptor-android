@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginScreen() {
+fun LoginView() {
     var emailField by remember { mutableStateOf(TextFieldValue("")) }
     var passwordField by remember { mutableStateOf(TextFieldValue("")) }
     Box(Modifier.fillMaxSize()) {
@@ -68,5 +68,5 @@ fun LoginScreen() {
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginView()
 }
