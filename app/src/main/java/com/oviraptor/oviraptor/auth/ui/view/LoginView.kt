@@ -14,13 +14,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun LoginView() {
+fun LoginView(navController : NavController) {
     var emailField by remember { mutableStateOf(TextFieldValue("")) }
     var passwordField by remember { mutableStateOf(TextFieldValue("")) }
     Box(Modifier.fillMaxSize()) {
@@ -68,5 +70,5 @@ fun LoginView() {
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginView()
+    LoginView(navController = NavController(context = LocalContext.current))
 }
