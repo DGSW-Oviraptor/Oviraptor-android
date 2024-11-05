@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,19 +25,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.oviraptor.oviraptor.home.network.api.getRooms
 import com.oviraptor.oviraptor.home.network.data.Room
+import com.oviraptor.oviraptor.nav.NavGroup
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeView(navController: NavController) {
     val context = LocalContext.current
-    var itemList by remember { mutableStateOf<List<Room>>(emptyList()) }
+    var roomList by remember { mutableStateOf<List<Room>>(emptyList()) }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             val data = getRooms(context)
             if (data != null){
-                itemList = data
+                roomList = data
             }
         }
     }
@@ -46,7 +48,15 @@ fun HomeView(navController: NavController) {
             .fillMaxSize()
             .systemBarsPadding(),
     ) {
-        ItemList(itemList = itemList)
+        Column {
+            Button(
+                content = {
+                    Text(text = "친구창가기")
+                },
+                onClick = {navController.navigate(NavGroup.HOME)}
+            )
+            ItemList(itemList = roomList)
+        }
     }
 }
 
