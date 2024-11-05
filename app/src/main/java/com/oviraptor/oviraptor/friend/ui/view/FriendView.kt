@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.oviraptor.oviraptor.friend.network.api.addFriend
 import com.oviraptor.oviraptor.friend.network.api.getFriend
 import com.oviraptor.oviraptor.friend.network.data.Friend
 import com.oviraptor.oviraptor.nav.NavGroup
@@ -34,6 +36,7 @@ fun FriendView(navController: NavController){
     val context = LocalContext.current
     var friendList by remember { mutableStateOf<List<Friend>>(emptyList()) }
     val coroutineScope = rememberCoroutineScope()
+    var friendEmail by remember {mutableStateOf("")}
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
@@ -58,6 +61,17 @@ fun FriendView(navController: NavController){
                 )
             }
             ItemList(itemList = friendList)
+            TextField(value = friendEmail, onValueChange = {friendEmail = it})
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        addFriend(context,friendEmail)
+                    }
+                          },
+                content = {
+                    Text(text = "친구추가")
+                }
+            )
         }
     }
 }
