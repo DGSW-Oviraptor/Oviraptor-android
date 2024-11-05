@@ -1,6 +1,7 @@
 package com.oviraptor.oviraptor.remote
 
 import com.oviraptor.oviraptor.BuildConfig
+import com.oviraptor.oviraptor.friend.network.FriendService
 import com.oviraptor.oviraptor.home.network.ChatService
 import com.oviraptor.oviraptor.user.network.UserService
 import retrofit2.Retrofit
@@ -23,5 +24,8 @@ object Client {
     }
     val userService: UserService by lazy {
         getClient().create(UserService::class.java)
+    }
+    val friendService: FriendService by lazy {
+        getClient().create(FriendService::class.java)
     }
 }
