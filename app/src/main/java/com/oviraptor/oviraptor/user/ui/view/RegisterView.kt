@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,12 +21,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.oviraptor.oviraptor.user.network.api.register
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterView(navController : NavController){
     var emailField by remember { mutableStateOf(TextFieldValue("")) }
     var nameField by remember { mutableStateOf(TextFieldValue("")) }
     var passwordField by remember { mutableStateOf(TextFieldValue("")) }
+    val coroutineScope = rememberCoroutineScope()
     Box(Modifier.fillMaxSize()) {
         Text(
             text = "JOIN",
@@ -61,7 +65,9 @@ fun RegisterView(navController : NavController){
         )
         Button(
             onClick = {
-                TODO("회원가입 코드 넣기")
+                coroutineScope.launch {
+                    register(emailField.toString(), nameField.toString(), passwordField.toString())
+                }
             },
             modifier = Modifier
                 .align(Alignment.Center)

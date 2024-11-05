@@ -2,7 +2,7 @@ package com.oviraptor.oviraptor.user.network.api
 
 import android.content.Context
 import com.iszero.dgsw_chatting.network.auth.LoginRequest
-import com.oviraptor.oviraptor.user.network.Client
+import com.oviraptor.oviraptor.remote.Client
 import com.oviraptor.oviraptor.user.userinfo.saveAccToken
 import com.oviraptor.oviraptor.user.userinfo.saveRefToken
 import kotlinx.coroutines.Dispatchers

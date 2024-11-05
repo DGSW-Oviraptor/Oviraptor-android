@@ -1,7 +1,7 @@
 package com.oviraptor.oviraptor.user.network.api
 
 import com.iszero.dgsw_chatting.network.auth.RegisterRequest
-import com.oviraptor.oviraptor.user.network.Client
+import com.oviraptor.oviraptor.remote.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

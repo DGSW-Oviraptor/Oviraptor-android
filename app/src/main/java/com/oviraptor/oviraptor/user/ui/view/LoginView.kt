@@ -1,5 +1,6 @@
 package com.oviraptor.oviraptor.user.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,11 +22,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.oviraptor.oviraptor.nav.NavGroup
+import com.oviraptor.oviraptor.user.network.api.login
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginView(navController : NavController) {
-    var emailField by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordField by remember { mutableStateOf(TextFieldValue("")) }
+    var emailField by remember { mutableStateOf(("")) }
+    var passwordField by remember { mutableStateOf(("")) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     Box(Modifier.fillMaxSize()) {
         Text(
             text = "LOGIN",
@@ -52,7 +59,13 @@ fun LoginView(navController : NavController) {
         )
         Button(
             onClick = {
-                TODO("로그인 시행")
+                coroutineScope.launch {
+                    val response = login(email = emailField.toString(), password = passwordField.toString(), context = context)
+                    Log.d("lasjdlf", "${emailField.toString()}${passwordField.toString()}")
+                    if( response != null){
+                        navController.navigate(NavGroup.HOME)
+                    }
+                }
             },
             modifier = Modifier
                 .align(Alignment.Center)
