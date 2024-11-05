@@ -11,7 +11,7 @@ interface FriendService {
     suspend fun getFriend(
         @Header("Authorization") token: String,
     ): List<Friend>
-    @POST("user/friend/add")
+    @POST("user/friends/add")
     suspend fun addFriend(
         @Header("Authorization") token: String,
         @Query("userEmail") userEmail: String
