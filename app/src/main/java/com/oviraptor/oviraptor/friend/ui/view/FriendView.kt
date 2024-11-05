@@ -65,7 +65,10 @@ fun FriendView(navController: NavController){
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        addFriend(context,friendEmail)
+                        val result = addFriend(context,friendEmail)
+                        if (result == "success"){
+                            navController.navigate(NavGroup.FRIEND)
+                        }
                     }
                           },
                 content = {
