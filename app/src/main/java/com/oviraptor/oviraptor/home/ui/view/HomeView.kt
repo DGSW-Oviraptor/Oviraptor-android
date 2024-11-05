@@ -53,7 +53,7 @@ fun HomeView(navController: NavController) {
                 content = {
                     Text(text = "친구창가기")
                 },
-                onClick = {navController.navigate(NavGroup.HOME)}
+                onClick = {navController.navigate(NavGroup.FRIEND)}
             )
             ItemList(itemList = roomList)
         }
