@@ -1,8 +1,8 @@
-package com.oviraptor.oviraptor.main.network.api
+package com.oviraptor.oviraptor.home.network.api
 
 import android.content.Context
 import com.oviraptor.oviraptor.remote.Client
-import com.oviraptor.oviraptor.main.network.data.Room
+import com.oviraptor.oviraptor.home.network.data.Room
 import com.oviraptor.oviraptor.user.userinfo.getAccToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.main.network.data
+package com.oviraptor.oviraptor.home.network.data
 
 data class Room(
     val id : Int,

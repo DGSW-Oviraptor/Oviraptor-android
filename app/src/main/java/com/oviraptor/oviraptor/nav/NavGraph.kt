@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.oviraptor.oviraptor.main.ui.view.HomeView
+import com.oviraptor.oviraptor.home.ui.view.HomeView
 import com.oviraptor.oviraptor.user.ui.view.FirstView
 import com.oviraptor.oviraptor.user.ui.view.LoginView
 import com.oviraptor.oviraptor.user.ui.view.RegisterView
