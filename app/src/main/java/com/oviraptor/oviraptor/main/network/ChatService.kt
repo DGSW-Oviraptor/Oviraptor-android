@@ -1,6 +1,7 @@
 package com.oviraptor.oviraptor.main.network
 
 import com.iszero.dgsw_chatting.network.auth.UserResponse
+import com.oviraptor.oviraptor.main.network.data.Room
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -12,7 +13,7 @@ interface ChatService {
     @GET("chat/rooms")
     suspend fun getRooms(
         @Header("Authorization") token: String,
-    ): UserResponse
+    ): List<Room>
 
     @POST("chat/rooms")
     suspend fun postRooms(
