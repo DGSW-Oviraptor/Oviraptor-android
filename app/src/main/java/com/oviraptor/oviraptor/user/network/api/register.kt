@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 suspend fun register(email : String, name : String, password : String): String? {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = Client.authService
+            val authService = Client.userService
             val request = RegisterRequest(email, name, password)
             authService.register(request)
             "success"
