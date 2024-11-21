@@ -16,3 +16,9 @@ fun getAccToken(context: Context): String? {
         preferences[ACC_TOKEN]
     }
 }
+fun getUserName(context: Context): String? {
+    return runBlocking {
+        val preferences = context.dataStore.data.first()
+        preferences[USER_NAME]
+    }
+}
