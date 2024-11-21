@@ -1,6 +1,5 @@
 package com.oviraptor.oviraptor.user.ui.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -17,12 +16,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.oviraptor.oviraptor.nav.NavGroup
+import com.oviraptor.oviraptor.user.network.api.getUserInfo
 import com.oviraptor.oviraptor.user.network.api.login
 import kotlinx.coroutines.launch
 
@@ -46,7 +45,7 @@ fun LoginView(navController : NavController) {
             onValueChange = { emailField = it },
             modifier = Modifier
                 .align(Alignment.Center)
-                .offset(y = -60.dp),
+                .offset(y = (-60).dp),
             placeholder = { Text(text = "이메일을 입력하세요") }
         )
         TextField(
@@ -60,10 +59,10 @@ fun LoginView(navController : NavController) {
         Button(
             onClick = {
                 coroutineScope.launch {
-                    val response = login(email = emailField.toString(), password = passwordField.toString(), context = context)
-                    Log.d("lasjdlf", "${emailField.toString()}${passwordField.toString()}")
+                    val response = login(email = emailField, password = passwordField, context = context)
                     if( response != null){
                         navController.navigate(NavGroup.HOME)
+                        getUserInfo(context)
                     }
                 }
             },
