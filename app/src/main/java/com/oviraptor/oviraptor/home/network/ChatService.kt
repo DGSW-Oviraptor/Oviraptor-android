@@ -1,6 +1,7 @@
 package com.oviraptor.oviraptor.home.network
 
 import com.iszero.dgsw_chatting.network.auth.UserResponse
+import com.oviraptor.oviraptor.home.network.data.GetMessagesResponse
 import com.oviraptor.oviraptor.home.network.data.GetRoomDetailResponse
 import com.oviraptor.oviraptor.home.network.data.GetRoomsResponse
 import com.oviraptor.oviraptor.home.network.data.Room
@@ -36,10 +37,10 @@ interface ChatService {
         @Path("roomId") roomId: String,
     )
     @GET("chat/{roomId}")
-    suspend fun getMessage(
+    suspend fun getMessages(
         @Header("Authorization") token: String,
         @Path("roomId") roomId: Int,
-    )
+    ): GetMessagesResponse
     @GET("chat/info/{roomId}")
     suspend fun getRoomDetail(
         @Header("Authorization") token: String,
