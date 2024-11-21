@@ -1,6 +1,7 @@
 package com.oviraptor.oviraptor.home.network
 
 import com.iszero.dgsw_chatting.network.auth.UserResponse
+import com.oviraptor.oviraptor.home.network.data.GetRoomDetailResponse
 import com.oviraptor.oviraptor.home.network.data.GetRoomsResponse
 import com.oviraptor.oviraptor.home.network.data.Room
 import retrofit2.http.DELETE
@@ -43,5 +44,5 @@ interface ChatService {
     suspend fun getRoomDetail(
         @Header("Authorization") token: String,
         @Path("roomId") roomId: Int
-    )
+    ): GetRoomDetailResponse
 }
