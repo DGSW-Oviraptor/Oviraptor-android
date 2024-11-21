@@ -39,4 +39,9 @@ interface ChatService {
         @Header("Authorization") token: String,
         @Path("roomId") roomId: Int,
     )
+    @GET("chat/info/{roomId}")
+    suspend fun getRoomDetail(
+        @Header("Authorization") token: String,
+        @Path("roomId") roomId: Int
+    )
 }
