@@ -14,7 +14,7 @@ suspend fun getRooms(context: Context): List<Room>? {
             val chatService = Client.chatService
             if (accessToken != null){
             val response = chatService.getRooms(accessToken)
-            response
+            response.data
             }
             else{
                 null

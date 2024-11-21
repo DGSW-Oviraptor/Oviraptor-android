@@ -6,4 +6,5 @@ object NavGroup {
     const val REGISTER = "Register"
     const val HOME = "home"
     const val FRIEND = "friend"
+    const val CHAT = "chat"
 }

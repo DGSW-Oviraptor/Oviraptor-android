@@ -1,5 +1,6 @@
 package com.oviraptor.oviraptor.home.ui.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -55,25 +56,32 @@ fun HomeView(navController: NavController) {
                 },
                 onClick = {navController.navigate(NavGroup.FRIEND)}
             )
-            ItemList(itemList = roomList)
-        }
-    }
-}
+            LazyColumn {
+                items(roomList){ room ->
+                    ItemRow(
+                        item = room,
+                        onClick = {
+                            val roomId = room.id
+                            navController.navigate("${NavGroup.CHAT}/$roomId")
+                        }
+                    )
 
-@Composable
-fun ItemList(itemList: List<Room>) {
-    LazyColumn {
-        items(itemList) { item ->
-            ItemRow(item)
+                }
+
+            }
         }
     }
 }
 @Composable
-fun ItemRow(item: Room) {
+fun ItemRow(
+    item: Room,
+    onClick : () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
+            .clickable { onClick() }
     ) {
         Text(text = item.name)
         Spacer(modifier = Modifier.height(4.dp))
