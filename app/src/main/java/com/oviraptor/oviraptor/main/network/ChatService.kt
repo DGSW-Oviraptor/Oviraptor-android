@@ -1,10 +1,9 @@
-package com.oviraptor.oviraptor.home.network
+package com.oviraptor.oviraptor.main.network
 
 import com.iszero.dgsw_chatting.network.auth.UserResponse
-import com.oviraptor.oviraptor.home.network.data.GetMessagesResponse
-import com.oviraptor.oviraptor.home.network.data.GetRoomDetailResponse
-import com.oviraptor.oviraptor.home.network.data.GetRoomsResponse
-import com.oviraptor.oviraptor.home.network.data.Room
+import com.oviraptor.oviraptor.main.network.data.GetMessagesResponse
+import com.oviraptor.oviraptor.main.network.data.GetRoomDetailResponse
+import com.oviraptor.oviraptor.main.network.data.GetRoomsResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header

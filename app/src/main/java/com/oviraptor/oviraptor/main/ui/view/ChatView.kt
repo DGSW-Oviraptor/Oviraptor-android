@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.home.ui.view
+package com.oviraptor.oviraptor.main.ui.view
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -31,10 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.google.gson.Gson
-import com.oviraptor.oviraptor.home.network.api.getMessages
-import com.oviraptor.oviraptor.home.network.api.getRoomDetail
-import com.oviraptor.oviraptor.home.network.data.Message
-import com.oviraptor.oviraptor.home.network.data.Room
+import com.oviraptor.oviraptor.main.network.api.getMessages
+import com.oviraptor.oviraptor.main.network.api.getRoomDetail
+import com.oviraptor.oviraptor.main.network.data.Message
+import com.oviraptor.oviraptor.main.network.data.Room
 import com.oviraptor.oviraptor.user.userinfo.getAccToken
 import com.oviraptor.oviraptor.user.userinfo.getUserName
 import kotlinx.coroutines.flow.distinctUntilChanged

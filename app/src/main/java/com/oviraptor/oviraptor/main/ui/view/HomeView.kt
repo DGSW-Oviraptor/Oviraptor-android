@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.home.ui.view
+package com.oviraptor.oviraptor.main.ui.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,8 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.oviraptor.oviraptor.home.network.api.getRooms
-import com.oviraptor.oviraptor.home.network.data.Room
+import com.oviraptor.oviraptor.main.network.api.getRooms
+import com.oviraptor.oviraptor.main.network.data.Room
 import com.oviraptor.oviraptor.nav.NavGroup
 import kotlinx.coroutines.launch
 

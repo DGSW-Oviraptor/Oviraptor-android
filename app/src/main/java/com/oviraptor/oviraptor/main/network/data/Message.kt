@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.home.network.data
+package com.oviraptor.oviraptor.main.network.data
 
 data class Message (
     val id : String,
