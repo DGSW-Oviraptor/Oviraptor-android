@@ -40,7 +40,7 @@ import com.oviraptor.oviraptor.ui.theme.pretendard
 fun AuthTextField(
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
-    isVerify: Boolean = true,
+    isVerify: Boolean = false,
     onTextChange: (String) -> Unit = {},
     text: String = "adsf",
     placeholder: String = "",
