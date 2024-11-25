@@ -8,7 +8,6 @@ import com.oviraptor.oviraptor.remote.Client
 import com.oviraptor.oviraptor.remote.parseFailedResponse
 import com.oviraptor.oviraptor.user.userinfo.saveAccToken
 import com.oviraptor.oviraptor.user.userinfo.saveRefToken
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 data class LoginState(
