@@ -8,7 +8,7 @@ import com.oviraptor.oviraptor.friend.ui.view.FriendView
 import com.oviraptor.oviraptor.main.ui.view.ChatView
 import com.oviraptor.oviraptor.main.ui.view.HomeView
 import com.oviraptor.oviraptor.user.ui.view.FirstView
-import com.oviraptor.oviraptor.user.ui.view.LoginView
+import com.oviraptor.oviraptor.user.ui.view.login.LoginView
 import com.oviraptor.oviraptor.user.ui.view.RegisterView
 
 @Composable
