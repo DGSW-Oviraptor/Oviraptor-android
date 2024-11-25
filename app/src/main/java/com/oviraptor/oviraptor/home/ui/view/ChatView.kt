@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +37,8 @@ import com.oviraptor.oviraptor.home.network.data.Message
 import com.oviraptor.oviraptor.home.network.data.Room
 import com.oviraptor.oviraptor.user.userinfo.getAccToken
 import com.oviraptor.oviraptor.user.userinfo.getUserName
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
@@ -76,7 +79,7 @@ fun ChatView(
         room = getRoomDetail(context, roomId.toInt())
         val response = getMessages(context, roomId.toInt())
         if (response != null) {
-            messages = response
+            messages = response.reversed()
             listState.scrollToItem(messages.size - 1)
         }
         stompClient.topic("/topic/room/${roomId}").subscribe { topicMessage ->
@@ -86,7 +89,7 @@ fun ChatView(
             val userName = getUserName(context) + "asdf"
             Log.d("adf", userName)
             val newMessage = Message(
-                chatId = 0,
+                id = "hello",
                 room = room?.name ?: "",
                 writer = newMessageLite.writer,
                 content = newMessageLite.message,
@@ -100,6 +103,45 @@ fun ChatView(
         }
 
     }
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.firstVisibleItemIndex }
+            .distinctUntilChanged()
+            .filter { it <= 10 } // 맨 위 아이템으로 스크롤 되었을 때만
+            .collect {
+                if (messages.isNotEmpty()) {
+                    // 기존의 첫 번째 아이템 ID와 인덱스 저장
+                    val previousFirstItemIndex = listState.firstVisibleItemIndex
+                    val previousFirstItemOffset = listState.firstVisibleItemScrollOffset
+
+                    // API 호출 및 메시지 업데이트
+                    val response = getMessages(context, roomId.toInt(), messages[0].id)
+                    if (response != null) {
+                        messages = response.reversed() + messages
+
+                        // 기존 위치로 스크롤 복원
+                        listState.scrollToItem(
+                            previousFirstItemIndex + response.size,
+                            previousFirstItemOffset
+                        )
+                    }
+                } else {
+                    println("messages 리스트가 비어있습니다.")
+                }
+            }
+    }
+//    LaunchedEffect(listState) {
+//        println("jads")
+//        snapshotFlow {
+//            val isAtTop = listState.firstVisibleItemIndex == 0 && listState.firstVisibleItemScrollOffset == 0
+//            println("isAtTop: $isAtTop")
+//            isAtTop
+//        }
+//            .collect { isAtTop ->
+//                if (isAtTop && messages.isNotEmpty()) { // 메시지가 비어 있지 않은지 확인
+//                }
+//            }
+//        }
+
     DisposableEffect(Unit) {
         onDispose {
             stompClient.disconnect() // WebSocket 연결 해제

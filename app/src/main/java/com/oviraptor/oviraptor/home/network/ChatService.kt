@@ -40,6 +40,7 @@ interface ChatService {
     suspend fun getMessages(
         @Header("Authorization") token: String,
         @Path("roomId") roomId: Int,
+        @Query("objectId") objectId: String?
     ): GetMessagesResponse
     @GET("chat/info/{roomId}")
     suspend fun getRoomDetail(

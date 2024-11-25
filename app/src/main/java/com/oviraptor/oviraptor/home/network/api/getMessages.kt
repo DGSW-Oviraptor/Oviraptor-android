@@ -8,13 +8,13 @@ import com.oviraptor.oviraptor.user.userinfo.getAccToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-suspend fun getMessages(context: Context, roomId : Int): List<Message>? {
+suspend fun getMessages(context: Context, roomId : Int, objectId: String? = null): List<Message>? {
     return withContext(Dispatchers.IO) {
         try {
             val accessToken = getAccToken(context)
             val chatService = Client.chatService
             if (accessToken != null){
-                val response = chatService.getMessages(accessToken,roomId)
+                val response = chatService.getMessages(accessToken,roomId,objectId)
                 response.data
             }
             else{
