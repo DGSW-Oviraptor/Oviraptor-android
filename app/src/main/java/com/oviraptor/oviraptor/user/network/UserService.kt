@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UserService {
     @POST("auth/login")
@@ -19,5 +20,9 @@ interface UserService {
     @GET("user/info")
     suspend fun getUserInfo(
         @Header("Authorization") token: String,
-    ):GetUserInfoResponse
+    ): GetUserInfoResponse
+    @GET("email")
+    suspend fun getAuthCode(
+        @Query("email") email: String
+    )
 }
