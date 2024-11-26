@@ -21,6 +21,7 @@ data class RegisterState(
     val password: String = "",
     val authCode: String = "",
     val result: String = "",
+    val isVerify: Boolean = false
 )
 
 sealed interface RegisterSideEffect {
@@ -41,6 +42,7 @@ class RegisterViewModel: ViewModel() {
 
     fun updateEmail(email: String) {
         _uiState.update { it.copy(email = email) }
+        _uiState.update { it.copy(isVerify = false) }
     }
 
     fun updatePassword(password: String) {
@@ -53,6 +55,10 @@ class RegisterViewModel: ViewModel() {
 
     fun updateResult(result: String) {
         _uiState.update { it.copy(result = result) }
+    }
+
+    fun updateIsVerify(isVerify: Boolean) {
+        _uiState.update { it.copy(isVerify = isVerify) }
     }
 
     fun register( email: String,name: String, password: String, authCode: String) {
@@ -75,10 +81,11 @@ class RegisterViewModel: ViewModel() {
             try {
                 val userService = Client.userService
                 userService.getAuthCode(email)
+                updateIsVerify(true)
                 updateResult("인증코드가 발송되었습니다.")
             } catch (e: HttpException) {
                 _uiEffect.emit(RegisterSideEffect.Failed)
-                val errorBody = e.response()?.errorBody()?.toString()
+                val errorBody = e.response()?.errorBody()?.string()
                 val errorResponse = errorBody?.let { parseFailedResponse(it) }
                 updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
             }
