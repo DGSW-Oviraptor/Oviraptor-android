@@ -61,10 +61,23 @@ fun RegisterNameView(
             text = uiState.name,
             onTextChange = viewModel::updateName
         )
+        Text(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = 180.dp),
+            text = uiState.error
+        )
         BaseButton(
             text = "다음",
             modifier = Modifier.align(Alignment.BottomCenter),
-            onClick = {navController.navigate(NavGroup.REGISTER_PASSWORD)}
+            onClick = {
+                if (uiState.name.isNotEmpty()) {
+                    navController.navigate(NavGroup.REGISTER_PASSWORD)
+                }
+                else {
+                    viewModel.updateError("이름을 입력해주세요.")
+                }
+            }
         )
     }
 }
