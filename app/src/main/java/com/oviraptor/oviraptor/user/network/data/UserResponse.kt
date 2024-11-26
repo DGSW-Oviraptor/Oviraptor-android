@@ -8,5 +8,6 @@ data class UserResponse (
 )
 data class UserResponseData (
     val accessToken : String,
-    val refreshToken : String
+    val refreshToken : String,
+    val username : String
 )
