@@ -7,6 +7,6 @@ object NavGroup {
     const val REGISTER_EMAIL = "register_email"
     const val REGISTER_PASSWORD = "register_password"
     const val HOME = "home"
-    const val FRIEND = "friend"
+    const val MY = "my"
     const val CHAT = "chat"
 }

@@ -50,12 +50,6 @@ fun HomeView(navController: NavController) {
             .systemBarsPadding(),
     ) {
         Column {
-            Button(
-                content = {
-                    Text(text = "친구창가기")
-                },
-                onClick = {navController.navigate(NavGroup.FRIEND)}
-            )
             LazyColumn {
                 items(roomList){ room ->
                     ItemRow(
