@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +47,7 @@ fun AuthTextField(
     text: String = "adsf",
     placeholder: String = "",
     onClick: () -> Unit = {},
+    keyboardType: KeyboardType = KeyboardType.Text
 ){
     var showPassword by remember { mutableStateOf(false) }
     var hidePasswordIcon by remember { mutableIntStateOf(value = R.drawable.show_password) }
@@ -73,6 +76,10 @@ fun AuthTextField(
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
+            ),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = keyboardType
             ),
             decorationBox = { innerTextField ->
                 Box(
