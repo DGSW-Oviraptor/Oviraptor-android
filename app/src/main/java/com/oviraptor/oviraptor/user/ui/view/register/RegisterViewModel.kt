@@ -70,4 +70,18 @@ class RegisterViewModel: ViewModel() {
             }
         }
     }
+    fun getAuthCode(email: String) {
+        viewModelScope.launch {
+            try {
+                val userService = Client.userService
+                userService.getAuthCode(email)
+                updateResult("인증코드가 발송되었습니다.")
+            } catch (e: HttpException) {
+                _uiEffect.emit(RegisterSideEffect.Failed)
+                val errorBody = e.response()?.errorBody()?.toString()
+                val errorResponse = errorBody?.let { parseFailedResponse(it) }
+                updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+            }
+        }
+    }
 }

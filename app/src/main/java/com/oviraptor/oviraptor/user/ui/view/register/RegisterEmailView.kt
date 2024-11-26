@@ -76,23 +76,26 @@ fun RegisterEmailView(
         ){
             AuthTextField(
                 placeholder = "이메일",
-                text = uiState.password,
-                onTextChange = viewModel::updatePassword,
+                text = uiState.email,
+                onTextChange = viewModel::updateEmail,
                 isVerify = true,
                 keyboardType = KeyboardType.Email
             )
             Spacer(modifier = Modifier.height(15.dp))
             AuthTextField(
                 placeholder = "인증코드",
-                text = uiState.password,
-                onTextChange = viewModel::updatePassword,
+                text = uiState.authCode,
+                onTextChange = viewModel::updateAuthCode,
                 keyboardType = KeyboardType.Number
             )
         }
         BaseButton(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            text = "완료"
+            text = "완료",
+            onClick = {
+                viewModel.getAuthCode(uiState.email)
+            }
         )
     }
 }
