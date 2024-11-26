@@ -8,6 +8,7 @@ import com.oviraptor.oviraptor.remote.Client
 import com.oviraptor.oviraptor.remote.parseFailedResponse
 import com.oviraptor.oviraptor.user.userinfo.saveAccToken
 import com.oviraptor.oviraptor.user.userinfo.saveRefToken
+import com.oviraptor.oviraptor.user.userinfo.saveUserName
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -23,6 +24,7 @@ data class LoginState(
     val access: String = "",
     val refresh: String = "",
     val error: String = "",
+    val username: String = ""
 )
 
 sealed interface LoginSideEffect {
@@ -51,6 +53,9 @@ class LoginViewModel : ViewModel() {
     fun updateToken(access: String, refresh: String) {
         _uiState.update { it.copy(access = access, refresh = refresh) }
     }
+    fun updateUsername(username: String) {
+        _uiState.update { it.copy(username = username) }
+    }
 
     fun login( email: String, password: String) {
         viewModelScope.launch {
@@ -59,6 +64,7 @@ class LoginViewModel : ViewModel() {
                     val request = LoginRequest(email, password)
                     val response = authService.login(request)
                     updateToken(response.data.accessToken, response.data.refreshToken)
+                    updateUsername(response.data.username)
                     _uiEffect.emit(LoginSideEffect.Success)
                 } catch (e: HttpException) {
                     _uiEffect.emit(LoginSideEffect.Failed)
@@ -72,5 +78,6 @@ class LoginViewModel : ViewModel() {
     fun saveTokens(context: Context){
         saveAccToken(context,uiState.value.access)
         saveRefToken(context,uiState.value.refresh)
+        saveUserName(context,uiState.value.username)
     }
 }
