@@ -33,11 +33,13 @@ fun LoginView(
     viewModel: LoginViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(viewModel) {
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 LoginSideEffect.Success -> {
+                    viewModel.saveTokens(context)
                     navController.navigate(NavGroup.HOME)
                 }
                 LoginSideEffect.Failed -> {
