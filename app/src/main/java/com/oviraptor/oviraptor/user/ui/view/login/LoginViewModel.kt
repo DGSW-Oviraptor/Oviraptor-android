@@ -23,7 +23,7 @@ data class LoginState(
     val password: String = "",
     val access: String = "",
     val refresh: String = "",
-    val error: String = "",
+    val result: String = "",
     val username: String = ""
 )
 
@@ -47,8 +47,8 @@ class LoginViewModel : ViewModel() {
         _uiState.update { it.copy(password = password) }
     }
 
-    fun updateError(error: String) {
-        _uiState.update { it.copy(error = error) }
+    fun updateResult(result: String) {
+        _uiState.update { it.copy(result = result) }
     }
     fun updateToken(access: String, refresh: String) {
         _uiState.update { it.copy(access = access, refresh = refresh) }
@@ -70,7 +70,7 @@ class LoginViewModel : ViewModel() {
                     _uiEffect.emit(LoginSideEffect.Failed)
                     val errorBody = e.response()?.errorBody()?.string()
                     val errorResponse = errorBody?.let { parseFailedResponse(it) }
-                    updateError(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+                    updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
                 }
             }
         }

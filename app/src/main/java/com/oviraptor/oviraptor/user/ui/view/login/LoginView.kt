@@ -93,7 +93,7 @@ fun LoginView(
         Text(
             modifier = Modifier.align(Alignment.TopCenter)
                 .offset(y = 250.dp),
-            text = uiState.error
+            text = uiState.result
         )
         BaseButton(
             onClick = {

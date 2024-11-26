@@ -20,7 +20,7 @@ data class RegisterState(
     val email: String = "",
     val password: String = "",
     val authCode: String = "",
-    val error: String = "",
+    val result: String = "",
 )
 
 sealed interface RegisterSideEffect {
@@ -51,22 +51,22 @@ class RegisterViewModel: ViewModel() {
         _uiState.update { it.copy(authCode = authCode) }
     }
 
-    fun updateError(error: String) {
-        _uiState.update { it.copy(error = error) }
+    fun updateResult(result: String) {
+        _uiState.update { it.copy(result = result) }
     }
 
     fun register( email: String,name: String, password: String, authCode: String) {
         viewModelScope.launch {
             try {
-                val authService = Client.userService
+                val userService = Client.userService
                 val request = RegisterRequest(email, name, password, authCode)
-                authService.register(request)
+                userService.register(request)
                 _uiEffect.emit(RegisterSideEffect.Success)
             } catch (e: HttpException) {
                 _uiEffect.emit(RegisterSideEffect.Failed)
                 val errorBody = e.response()?.errorBody()?.string()
                 val errorResponse = errorBody?.let { parseFailedResponse(it) }
-                updateError(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+                updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
             }
         }
     }

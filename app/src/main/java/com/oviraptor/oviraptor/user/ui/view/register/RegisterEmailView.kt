@@ -3,7 +3,9 @@ package com.oviraptor.oviraptor.user.ui.view.register
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
@@ -15,21 +17,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.oviraptor.oviraptor.nav.NavGroup
 import com.oviraptor.oviraptor.ui.component.BackButton
 import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.pretendard
 import com.oviraptor.oviraptor.user.ui.component.AuthTextField
 import com.oviraptor.oviraptor.user.ui.component.BaseButton
-import com.oviraptor.oviraptor.user.ui.component.ResultText
 
 @Composable
-fun RegisterPasswordView(
+fun RegisterEmailView(
     navController: NavController,
     viewModel: RegisterViewModel
 ){
@@ -46,9 +47,7 @@ fun RegisterPasswordView(
                 .offset(x = 18.dp, y = 6.dp)
             ,
             navController = navController,
-            onClick = {
-                viewModel.updateResult("")
-            }
+            onClick = {viewModel.updateResult("")}
         )
         Column(
             modifier = Modifier
@@ -63,49 +62,44 @@ fun RegisterPasswordView(
                 color = MainColor
             )
             Text(
-                text = "비밀번호를 알려 주세요.",
+                text = "이메일 주소를 알려 주세요.",
                 fontSize = 30.sp,
                 fontFamily = pretendard,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black
             )
         }
-        AuthTextField(
+        Column (
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 150.dp),
-            placeholder = "비밀번호",
-            text = uiState.password,
-            onTextChange = viewModel::updatePassword,
-            isPassword = true
-        )
-        ResultText(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .offset(x = 18.dp, y = 210.dp),
-            text = uiState.result
-        )
+        ){
+            AuthTextField(
+                placeholder = "이메일",
+                text = uiState.password,
+                onTextChange = viewModel::updatePassword,
+                isVerify = true,
+                keyboardType = KeyboardType.Email
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            AuthTextField(
+                placeholder = "인증코드",
+                text = uiState.password,
+                onTextChange = viewModel::updatePassword,
+                keyboardType = KeyboardType.Number
+            )
+        }
         BaseButton(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            text = "완료",
-            onClick = {
-                if (uiState.password.length >= 8){
-                    viewModel.updateResult("")
-                    navController.navigate(NavGroup.REGISTER_EMAIL)
-                }
-                else {
-                    viewModel.updateResult("비밀번호는 8자 이상이여야 합니다.")
-                }
-            }
+            modifier = Modifier
+                .align(Alignment.BottomCenter),
+            text = "완료"
         )
     }
 }
-@Preview(
-    showBackground = true
-)
+@Preview
 @Composable
-fun RPswordPreview(){
-    RegisterPasswordView(
+fun RgEmailPv(){
+    RegisterEmailView(
         navController = NavController(context = LocalContext.current),
         viewModel = viewModel()
     )

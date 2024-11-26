@@ -18,7 +18,7 @@ import com.oviraptor.oviraptor.R
 import com.oviraptor.oviraptor.ui.theme.pretendard
 
 @Composable
-fun ErrorText(
+fun ResultText(
     modifier: Modifier = Modifier,
     text: String = "안녕하세요"
 ){
@@ -48,5 +48,5 @@ fun ErrorText(
 @Preview
 @Composable
 fun ErTxtPrv(){
-    ErrorText()
+    ResultText()
 }
