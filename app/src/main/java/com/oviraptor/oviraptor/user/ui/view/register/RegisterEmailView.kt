@@ -28,6 +28,7 @@ import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.pretendard
 import com.oviraptor.oviraptor.user.ui.component.AuthTextField
 import com.oviraptor.oviraptor.user.ui.component.BaseButton
+import com.oviraptor.oviraptor.user.ui.component.ResultText
 
 @Composable
 fun RegisterEmailView(
@@ -44,8 +45,7 @@ fun RegisterEmailView(
         BackButton(
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .offset(x = 18.dp, y = 6.dp)
-            ,
+                .offset(x = 18.dp, y = 6.dp),
             navController = navController,
             onClick = {viewModel.updateResult("")}
         )
@@ -79,7 +79,8 @@ fun RegisterEmailView(
                 text = uiState.email,
                 onTextChange = viewModel::updateEmail,
                 isVerify = true,
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                onClick = {viewModel.getAuthCode(uiState.email)}
             )
             Spacer(modifier = Modifier.height(15.dp))
             AuthTextField(
@@ -88,13 +89,24 @@ fun RegisterEmailView(
                 onTextChange = viewModel::updateAuthCode,
                 keyboardType = KeyboardType.Number
             )
+            Spacer(modifier = Modifier.height(10.dp))
+            ResultText(
+                modifier = Modifier
+                    .offset(x = 18.dp),
+                text = uiState.result
+            )
         }
         BaseButton(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
             text = "완료",
             onClick = {
-                viewModel.getAuthCode(uiState.email)
+                if (uiState.isVerify){
+                    viewModel.register(uiState.email,uiState.name,uiState.password,uiState.authCode)
+                }
+                else {
+                    viewModel.updateResult("이메일을 인증해주세요.")
+                }
             }
         )
     }
