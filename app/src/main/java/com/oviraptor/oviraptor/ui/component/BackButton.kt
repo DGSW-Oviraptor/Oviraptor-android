@@ -12,11 +12,15 @@ import com.oviraptor.oviraptor.R
 @Composable
 fun BackButton(
     modifier: Modifier,
-    navController: NavController
+    navController: NavController,
+    onClick: () -> Unit = {}
 ){
     Box(
         modifier = modifier
-            .clickable { navController.popBackStack() }
+            .clickable {
+                onClick()
+                navController.popBackStack()
+            }
     ){
         Image(
             painter = painterResource(R.drawable.back_button),
