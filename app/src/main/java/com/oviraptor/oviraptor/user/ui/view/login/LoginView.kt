@@ -27,6 +27,7 @@ import com.oviraptor.oviraptor.ui.component.BackButton
 import com.oviraptor.oviraptor.ui.theme.pretendard
 import com.oviraptor.oviraptor.user.ui.component.AuthTextField
 import com.oviraptor.oviraptor.user.ui.component.BaseButton
+import com.oviraptor.oviraptor.user.ui.component.ResultText
 
 @Composable
 fun LoginView(
@@ -90,9 +91,9 @@ fun LoginView(
             isPassword = true,
             keyboardType = KeyboardType.Password
         )
-        Text(
-            modifier = Modifier.align(Alignment.TopCenter)
-                .offset(y = 250.dp),
+        ResultText(
+            modifier = Modifier.align(Alignment.TopStart)
+                .offset(x = 18.dp, y = 250.dp),
             text = uiState.result
         )
         BaseButton(
