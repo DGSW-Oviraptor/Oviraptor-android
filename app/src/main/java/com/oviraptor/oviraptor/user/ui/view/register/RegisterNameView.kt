@@ -24,6 +24,7 @@ import com.oviraptor.oviraptor.ui.component.BackButton
 import com.oviraptor.oviraptor.ui.theme.pretendard
 import com.oviraptor.oviraptor.user.ui.component.AuthTextField
 import com.oviraptor.oviraptor.user.ui.component.BaseButton
+import com.oviraptor.oviraptor.user.ui.component.ErrorText
 
 @Composable
 fun RegisterNameView(
@@ -56,15 +57,15 @@ fun RegisterNameView(
         AuthTextField(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .offset(y = 122.dp),
+                .offset(y = 120.dp),
             placeholder = "이름",
             text = uiState.name,
             onTextChange = viewModel::updateName
         )
-        Text(
+        ErrorText(
             modifier = Modifier
-                .align(Alignment.TopCenter)
-                .offset(y = 180.dp),
+                .align(Alignment.TopStart)
+                .offset(x = 18.dp, y = 180.dp),
             text = uiState.error
         )
         BaseButton(
@@ -72,6 +73,7 @@ fun RegisterNameView(
             modifier = Modifier.align(Alignment.BottomCenter),
             onClick = {
                 if (uiState.name.isNotEmpty()) {
+                    viewModel.updateError("")
                     navController.navigate(NavGroup.REGISTER_PASSWORD)
                 }
                 else {
