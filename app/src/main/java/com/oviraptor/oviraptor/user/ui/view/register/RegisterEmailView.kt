@@ -1,5 +1,6 @@
 package com.oviraptor.oviraptor.user.ui.view.register
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.oviraptor.oviraptor.nav.NavGroup
 import com.oviraptor.oviraptor.ui.component.BackButton
 import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.pretendard
@@ -35,6 +38,20 @@ fun RegisterEmailView(
     navController: NavController,
     viewModel: RegisterViewModel
 ){
+    LaunchedEffect(viewModel) {
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                RegisterSideEffect.Success -> {
+                    viewModel.updateResult("")
+                    navController.navigate(NavGroup.LOGIN)
+                }
+                RegisterSideEffect.Failed -> {
+                    Log.d("result", "failed")
+                }
+            }
+        }
+    }
+
     val uiState by viewModel.uiState.collectAsState()
     Box(
         modifier = Modifier
