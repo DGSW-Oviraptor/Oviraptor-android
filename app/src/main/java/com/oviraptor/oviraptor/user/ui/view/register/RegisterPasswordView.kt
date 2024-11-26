@@ -45,7 +45,10 @@ fun RegisterPasswordView(
                 .align(Alignment.TopStart)
                 .offset(x = 18.dp, y = 6.dp)
             ,
-            navController = navController
+            navController = navController,
+            onClick = {
+                viewModel.updateError("")
+            }
         )
         Column(
             modifier = Modifier
