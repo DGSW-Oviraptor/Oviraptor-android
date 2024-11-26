@@ -61,7 +61,7 @@ fun FirstView(navController : NavController){
             text = "로그인"
         )
         BaseButton(
-            onClick = {navController.navigate(NavGroup.REGISTER)},
+            onClick = {navController.navigate(NavGroup.REGISTER_NAME)},
             modifier = Modifier
                 .align(Alignment.BottomCenter),
             color = SubColor,
