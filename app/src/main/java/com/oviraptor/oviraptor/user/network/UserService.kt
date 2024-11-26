@@ -21,7 +21,7 @@ interface UserService {
     suspend fun getUserInfo(
         @Header("Authorization") token: String,
     ): GetUserInfoResponse
-    @GET("email")
+    @GET("mail/code")
     suspend fun getAuthCode(
         @Query("email") email: String
     )
