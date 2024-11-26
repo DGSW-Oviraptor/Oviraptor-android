@@ -37,8 +37,8 @@ class LoginViewModel : ViewModel() {
     private val _uiEffect = MutableSharedFlow<LoginSideEffect>()
     val uiEffect: SharedFlow<LoginSideEffect> = _uiEffect.asSharedFlow()
 
-    fun updateEmail(content: String) {
-        _uiState.update { it.copy(email = content) }
+    fun updateEmail(email: String) {
+        _uiState.update { it.copy(email = email) }
     }
 
     fun updatePassword(password: String) {
