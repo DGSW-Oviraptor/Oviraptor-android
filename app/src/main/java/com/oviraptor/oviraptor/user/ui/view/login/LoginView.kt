@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,7 +87,8 @@ fun LoginView(
                 .align(Alignment.TopCenter)
                 .offset(y = 190.dp),
             placeholder = "비밀번호",
-            isPassword = true
+            isPassword = true,
+            keyboardType = KeyboardType.Password
         )
         Text(
             modifier = Modifier.align(Alignment.TopCenter)
