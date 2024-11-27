@@ -3,6 +3,7 @@ package com.oviraptor.oviraptor.user.network
 import com.iszero.dgsw_chatting.network.auth.RegisterRequest
 import com.iszero.dgsw_chatting.network.auth.LoginRequest
 import com.iszero.dgsw_chatting.network.auth.UserResponse
+import com.oviraptor.oviraptor.remote.data.RefreshResponse
 import com.oviraptor.oviraptor.user.network.data.GetUserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -25,4 +26,8 @@ interface UserService {
     suspend fun getAuthCode(
         @Query("email") email: String
     )
+    @POST("auth/refresh")
+    suspend fun refresh(
+        @Header("Authorization") token: String,
+    ):RefreshResponse
 }
