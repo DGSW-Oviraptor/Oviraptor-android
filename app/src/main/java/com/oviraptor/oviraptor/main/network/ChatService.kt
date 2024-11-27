@@ -12,7 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ChatService {
-    @GET("chat/rooms")
+    @GET("user/rooms")
     suspend fun getRooms(
         @Header("Authorization") token: String,
     ): GetRoomsResponse
