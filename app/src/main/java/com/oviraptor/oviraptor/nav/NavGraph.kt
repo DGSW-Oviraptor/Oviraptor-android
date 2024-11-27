@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.oviraptor.oviraptor.R
 import com.oviraptor.oviraptor.main.ui.view.ChatView
-import com.oviraptor.oviraptor.main.ui.view.HomeView
+import com.oviraptor.oviraptor.main.ui.view.home.HomeView
 import com.oviraptor.oviraptor.main.ui.view.MyView
 import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.dropShadow
@@ -44,7 +44,7 @@ fun BottomNavBar(navController: NavHostController) {
     val items = listOf(BottomNavItem.Home, BottomNavItem.My)
     NavigationBar (
         modifier = Modifier
-            .height(100.dp)
+            .height(80.dp)
             .dropShadow(color = Color(0xFF000000).copy(0.1f), blur = 4.dp, offsetY = 0.dp),
         containerColor = Color.White
     ){
