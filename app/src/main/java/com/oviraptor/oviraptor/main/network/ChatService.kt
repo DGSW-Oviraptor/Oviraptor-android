@@ -18,10 +18,10 @@ interface ChatService {
     ): GetRoomsResponse
 
     @POST("chat/create")
-    suspend fun postRooms(
+    suspend fun addRooms(
         @Header("Authorization") token: String,
         @Query("name") name : String
-    ): UserResponse
+    )
 
     @POST("user/rooms/{roomId}/invite")
     suspend fun inviteRooms(

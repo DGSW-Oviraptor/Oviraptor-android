@@ -21,16 +21,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,13 +47,18 @@ import androidx.navigation.NavController
 import com.oviraptor.oviraptor.R
 import com.oviraptor.oviraptor.main.network.data.Room
 import com.oviraptor.oviraptor.nav.NavGroup
+import com.oviraptor.oviraptor.ui.component.BaseTextField
 import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.pretendard
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeView(navController: NavController, viewModel: HomeViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
     LaunchedEffect(Unit) {
         viewModel.getRooms(context)
     }
@@ -75,7 +86,8 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel = viewModel(
             Spacer(modifier = Modifier.weight(1f))
             Image(
                 modifier = Modifier
-                    .align(Alignment.CenterVertically),
+                    .align(Alignment.CenterVertically)
+                    .clickable { viewModel.updateIsAddRoom(true) },
                 painter = painterResource(R.drawable.add_chat_icon),
                 contentDescription = "",
             )
@@ -93,6 +105,46 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel = viewModel(
                         navController.navigate("${NavGroup.CHAT}/${room.id}")
                     }
                 )
+            }
+        }
+        if (uiState.isAddRoom) {
+            ModalBottomSheet(
+                modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth()
+                ,
+                sheetState = sheetState,
+                onDismissRequest = {
+                    viewModel.updateIsAddRoom(false)
+                },
+                containerColor = Color.White,
+                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            ) {
+                Box(Modifier.fillMaxSize()) {
+                    Text(
+                        "채팅방 만들기",
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .offset(x = 18.dp),
+                        fontFamily = pretendard,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MainColor
+                    )
+                    BaseTextField(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .offset(y = 30.dp),
+                        placeholder = "방 이름",
+                        text = uiState.addRoomName,
+                        onTextChange = viewModel::updateAddRoomName,
+                        isButton = true,
+                        buttonColor = Color(0xFF679EFF),
+                        borderColor = MainColor,
+                        buttonText = "생성",
+                        onClick = {viewModel.addRoom(context,uiState.addRoomName)}
+                    )
+                }
             }
         }
     }
@@ -147,6 +199,5 @@ fun RoomItem(
 )
 @Composable
 fun HomeViewPRV(){
-//    HomeView(navController = NavController(context = LocalContext.current))
-    RoomItem(room = Room(0,"테스트", listOf("ㅁㄴㅇㄹ","ㄹㅁㅇ")))
+    HomeView(navController = NavController(context = LocalContext.current))
 }

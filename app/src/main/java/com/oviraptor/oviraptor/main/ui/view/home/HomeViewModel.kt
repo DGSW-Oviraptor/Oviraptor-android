@@ -3,17 +3,11 @@ package com.oviraptor.oviraptor.main.ui.view.home
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iszero.dgsw_chatting.network.auth.LoginRequest
 import com.oviraptor.oviraptor.main.network.data.Room
 import com.oviraptor.oviraptor.remote.Client
 import com.oviraptor.oviraptor.remote.parseFailedResponse
 import com.oviraptor.oviraptor.remote.refresh
-import com.oviraptor.oviraptor.user.ui.view.login.LoginSideEffect
 import com.oviraptor.oviraptor.user.userinfo.getAccToken
-import com.oviraptor.oviraptor.user.userinfo.getRefToken
-import com.oviraptor.oviraptor.user.userinfo.saveAccToken
-import com.oviraptor.oviraptor.user.userinfo.saveRefToken
-import com.oviraptor.oviraptor.user.userinfo.saveUserName
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -25,7 +19,9 @@ import retrofit2.HttpException
 
 data class HomeState(
     val rooms : List<Room> = emptyList(),
-    val result : String = ""
+    val result : String = "",
+    val isAddRoom : Boolean = false,
+    val addRoomName : String = ""
 )
 
 sealed interface HomeSideEffect {
@@ -48,6 +44,13 @@ class HomeViewModel : ViewModel() {
         _uiState.update { it.copy(result = result) }
     }
 
+    fun updateIsAddRoom(isAddRoom: Boolean) {
+        _uiState.update { it.copy(isAddRoom = isAddRoom) }
+    }
+    fun updateAddRoomName(addRoomName: String) {
+        _uiState.update { it.copy(addRoomName = addRoomName) }
+    }
+
     fun getRooms(context: Context) {
         viewModelScope.launch {
             try {
@@ -58,13 +61,48 @@ class HomeViewModel : ViewModel() {
                     updateRooms(response.data)
                 }
                 else {
-                    updateResult("다시 로그인 해주세요")
+                    _uiEffect.emit(HomeSideEffect.Expiration)
                 }
             } catch (e: HttpException) {
                 _uiEffect.emit(HomeSideEffect.Failed)
                 val errorBody = e.response()?.errorBody()?.string()
                 when (e.code()) {
-                    401 -> {
+                    403 -> {
+                        val response = refresh(context)
+                        if (response != null){
+                            getRooms(context)
+                        }
+                        else {
+                            _uiEffect.emit(HomeSideEffect.Expiration)
+                        }
+                    }
+                    else -> {
+                        val errorResponse = errorBody?.let { parseFailedResponse(it) }
+                        updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+                    }
+                }
+            }
+        }
+    }
+
+    fun addRoom(context: Context, name : String) {
+        viewModelScope.launch {
+            try {
+                val chatService = Client.chatService
+                val accToken = getAccToken(context)
+                if (accToken != null) {
+                    chatService.addRooms(accToken,name)
+                    getRooms(context)
+                }
+                else {
+                    _uiEffect.emit(HomeSideEffect.Expiration)
+                }
+            }
+            catch (e: HttpException) {
+                _uiEffect.emit(HomeSideEffect.Failed)
+                val errorBody = e.response()?.errorBody()?.string()
+                when (e.code()) {
+                    403 -> {
                         val response = refresh(context)
                         if (response != null){
                             getRooms(context)
