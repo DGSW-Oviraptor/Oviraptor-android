@@ -42,7 +42,8 @@ import com.oviraptor.oviraptor.ui.theme.pretendard
 fun BaseTextField(
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
-    isVerify: Boolean = false,
+    isButton: Boolean = false,
+    buttonText:String = "인증",
     onTextChange: (String) -> Unit = {},
     text: String = "adsf",
     placeholder: String = "",
@@ -125,7 +126,7 @@ fun BaseTextField(
                 )
             }
         }
-        if (isVerify){
+        if (isButton){
             Box(
                 modifier = Modifier
                     .offset(x = (-13).dp)
@@ -137,7 +138,7 @@ fun BaseTextField(
             ){
                 Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = "인증",
+                    text = buttonText,
                     fontFamily = pretendard,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
