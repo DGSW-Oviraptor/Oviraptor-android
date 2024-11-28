@@ -49,7 +49,8 @@ fun BaseTextField(
     placeholder: String = "",
     onClick: () -> Unit = {},
     keyboardType: KeyboardType = KeyboardType.Text,
-    buttonColor: Color = Color.Black
+    buttonColor: Color = Color.Black,
+    borderColor: Color = Color(0xFFE1E1E1)
 ){
     var showPassword by remember { mutableStateOf(false) }
     var hidePasswordIcon by remember { mutableIntStateOf(value = R.drawable.show_password) }
@@ -62,7 +63,7 @@ fun BaseTextField(
             .background(Color(0xFFFAFAFA))
             .border(
                 width = 1.dp,
-                color = Color(0xFFE1E1E1),
+                color = borderColor,
                 shape = RoundedCornerShape(5.dp)
             )
     ) {
