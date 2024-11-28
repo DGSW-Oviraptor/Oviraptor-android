@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.user.ui.component
+package com.oviraptor.oviraptor.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

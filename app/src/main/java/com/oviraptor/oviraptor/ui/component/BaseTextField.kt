@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.user.ui.component
+package com.oviraptor.oviraptor.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -39,7 +39,7 @@ import com.oviraptor.oviraptor.R
 import com.oviraptor.oviraptor.ui.theme.pretendard
 
 @Composable
-fun AuthTextField(
+fun BaseTextField(
     modifier: Modifier = Modifier,
     isPassword: Boolean = false,
     isVerify: Boolean = false,
@@ -47,7 +47,8 @@ fun AuthTextField(
     text: String = "adsf",
     placeholder: String = "",
     onClick: () -> Unit = {},
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    buttonColor: Color = Color.Black
 ){
     var showPassword by remember { mutableStateOf(false) }
     var hidePasswordIcon by remember { mutableIntStateOf(value = R.drawable.show_password) }
@@ -131,7 +132,7 @@ fun AuthTextField(
                     .size(50.dp,30.dp)
                     .clip(RoundedCornerShape(5.dp))
                     .align(Alignment.CenterEnd)
-                    .background(Color.Black)
+                    .background(buttonColor)
                     .clickable { onClick() }
             ){
                 Text(
@@ -150,6 +151,6 @@ fun AuthTextField(
     showBackground = true,
 )
 @Composable
-fun ATFPreview(){
-    AuthTextField()
+fun BTFPreview(){
+    BaseTextField()
 }
