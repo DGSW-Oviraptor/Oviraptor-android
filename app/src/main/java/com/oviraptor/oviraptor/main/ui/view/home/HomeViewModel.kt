@@ -200,4 +200,38 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+    fun deleteFriend(context: Context, email: String) {
+        viewModelScope.launch {
+            try {
+                val friendService = Client.friendService
+                val accToken = getAccToken(context)
+                if (accToken != null) {
+                    friendService.deleteFriend(accToken,email)
+                    getFriends(context)
+                }
+                else {
+                    _uiEffect.emit(HomeSideEffect.Expiration)
+                }
+            }
+            catch (e: HttpException) {
+                _uiEffect.emit(HomeSideEffect.Failed)
+                val errorBody = e.response()?.errorBody()?.string()
+                when (e.code()) {
+                    403 -> {
+                        val response = refresh(context)
+                        if (response != null){
+                            getRooms(context)
+                        }
+                        else {
+                            _uiEffect.emit(HomeSideEffect.Expiration)
+                        }
+                    }
+                    else -> {
+                        val errorResponse = errorBody?.let { parseFailedResponse(it) }
+                        updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+                    }
+                }
+            }
+        }
+    }
 }

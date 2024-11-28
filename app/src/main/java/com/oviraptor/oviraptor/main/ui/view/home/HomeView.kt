@@ -209,7 +209,10 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel = viewModel(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         items(uiState.friends){ friend ->
-                            FriendItem(friend)
+                            FriendItem(
+                                friend,
+                                onClick = {viewModel.deleteFriend(context,friend.email)}
+                            )
                         }
                     }
                 }
@@ -274,7 +277,6 @@ fun FriendItem(
             .clip(RoundedCornerShape(5.dp))
             .background(Color(0xFFF9F9F9))
             .border(width = 1.dp, color = Color(0xFFE0E0E0), shape = RoundedCornerShape(5.dp))
-            .clickable { onClick() }
     ){
         Spacer(Modifier.width(17.dp))
         Column(
@@ -299,7 +301,7 @@ fun FriendItem(
         Row(modifier = Modifier
             .padding(end = 18.dp)
                 .height(34.dp)
-                .clickable {  }
+                .clickable { onClick() }
                 .align(Alignment.CenterVertically)
         ){
             Spacer(modifier = Modifier.width(5.dp))

@@ -1,6 +1,7 @@
 package com.oviraptor.oviraptor.main.network
 
 import com.oviraptor.oviraptor.main.network.data.GetFriendsResponse
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -14,6 +15,12 @@ interface FriendService {
 
     @POST("user/friends/add")
     suspend fun addFriend(
+        @Header("Authorization") token: String,
+        @Query("email") email: String
+    )
+
+    @DELETE("user/friends/delete")
+    suspend fun deleteFriend(
         @Header("Authorization") token: String,
         @Query("email") email: String
     )
