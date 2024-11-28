@@ -194,13 +194,13 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel = viewModel(
                             .align(Alignment.TopStart)
                             .offset(y = 30.dp),
                         placeholder = "이메일",
-                        text = uiState.addRoomName,
-                        onTextChange = viewModel::updateAddRoomName,
+                        text = uiState.friendEmail,
+                        onTextChange = viewModel::updateFriendEmail,
                         isButton = true,
                         buttonColor = Color(0xFF679EFF),
                         borderColor = MainColor,
                         buttonText = "추가",
-                        onClick = {viewModel.addRoom(context,uiState.addRoomName)}
+                        onClick = {viewModel.addFriend(context,uiState.friendEmail)}
                     )
                     LazyColumn(
                         modifier = Modifier

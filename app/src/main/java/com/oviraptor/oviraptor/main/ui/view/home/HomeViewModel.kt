@@ -24,6 +24,7 @@ data class HomeState(
     val isAddRoom : Boolean = false,
     val addRoomName : String = "",
     val isAddFriend : Boolean = false,
+    val friendEmail : String = "",
     val friends : List<Friend> = emptyList()
 )
 
@@ -58,6 +59,9 @@ class HomeViewModel : ViewModel() {
     }
     fun updateFriends(friends: List<Friend>) {
         _uiState.update { it.copy(friends = friends) }
+    }
+    fun updateFriendEmail(friendEmail: String) {
+        _uiState.update { it.copy(friendEmail = friendEmail) }
     }
 
     fun getRooms(context: Context) {
@@ -136,6 +140,40 @@ class HomeViewModel : ViewModel() {
                 if (accToken != null) {
                     val response = friendService.getFriends(accToken)
                     updateFriends(response.data)
+                }
+                else {
+                    _uiEffect.emit(HomeSideEffect.Expiration)
+                }
+            }
+            catch (e: HttpException) {
+                _uiEffect.emit(HomeSideEffect.Failed)
+                val errorBody = e.response()?.errorBody()?.string()
+                when (e.code()) {
+                    403 -> {
+                        val response = refresh(context)
+                        if (response != null){
+                            getRooms(context)
+                        }
+                        else {
+                            _uiEffect.emit(HomeSideEffect.Expiration)
+                        }
+                    }
+                    else -> {
+                        val errorResponse = errorBody?.let { parseFailedResponse(it) }
+                        updateResult(errorResponse?.message ?: "알 수 없는 오류가 발생했습니다.")
+                    }
+                }
+            }
+        }
+    }
+    fun addFriend(context: Context, email: String) {
+        viewModelScope.launch {
+            try {
+                val friendService = Client.friendService
+                val accToken = getAccToken(context)
+                if (accToken != null) {
+                    friendService.addFriend(accToken,email)
+                    getFriends(context)
                 }
                 else {
                     _uiEffect.emit(HomeSideEffect.Expiration)
