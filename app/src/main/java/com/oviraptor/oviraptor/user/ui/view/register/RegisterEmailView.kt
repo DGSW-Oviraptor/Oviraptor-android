@@ -95,7 +95,7 @@ fun RegisterEmailView(
                 placeholder = "이메일",
                 text = uiState.email,
                 onTextChange = viewModel::updateEmail,
-                isVerify = true,
+                isButton = true,
                 keyboardType = KeyboardType.Email,
                 onClick = {viewModel.getAuthCode(uiState.email)}
             )
