@@ -24,9 +24,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.oviraptor.oviraptor.nav.NavGroup
 import com.oviraptor.oviraptor.ui.component.BackButton
+import com.oviraptor.oviraptor.ui.component.BaseButton
+import com.oviraptor.oviraptor.ui.component.BaseTextField
 import com.oviraptor.oviraptor.ui.theme.pretendard
-import com.oviraptor.oviraptor.user.ui.component.AuthTextField
-import com.oviraptor.oviraptor.user.ui.component.BaseButton
 import com.oviraptor.oviraptor.user.ui.component.ResultText
 
 @Composable
@@ -73,7 +73,7 @@ fun LoginView(
             fontFamily = pretendard,
             fontWeight = FontWeight.SemiBold
         )
-        AuthTextField(
+        BaseTextField(
             text = uiState.email,
             onTextChange = viewModel::updateEmail,
             modifier = Modifier
@@ -81,7 +81,7 @@ fun LoginView(
                 .offset(y = 120.dp),
             placeholder = "이메일"
         )
-        AuthTextField(
+        BaseTextField(
             text = uiState.password,
             onTextChange = viewModel::updatePassword,
             modifier = Modifier

@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.oviraptor.oviraptor.nav.NavGroup
+import com.oviraptor.oviraptor.ui.component.BaseButton
 import com.oviraptor.oviraptor.ui.theme.MainColor
 import com.oviraptor.oviraptor.ui.theme.SubColor
 import com.oviraptor.oviraptor.ui.theme.pretendard
-import com.oviraptor.oviraptor.user.ui.component.BaseButton
 
 @Composable
 fun FirstView(navController : NavController){
