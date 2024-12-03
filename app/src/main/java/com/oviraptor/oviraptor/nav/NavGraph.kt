@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.oviraptor.oviraptor.R
-import com.oviraptor.oviraptor.main.ui.view.ChatView
+import com.oviraptor.oviraptor.main.ui.view.chat.ChatView
 import com.oviraptor.oviraptor.main.ui.view.home.HomeView
 import com.oviraptor.oviraptor.main.ui.view.MyView
 import com.oviraptor.oviraptor.ui.theme.MainColor
