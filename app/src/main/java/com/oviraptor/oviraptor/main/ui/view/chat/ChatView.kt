@@ -1,4 +1,4 @@
-package com.oviraptor.oviraptor.main.ui.view
+package com.oviraptor.oviraptor.main.ui.view.chat
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -45,9 +45,6 @@ import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.StompCommand
 import ua.naiksoftware.stomp.dto.StompHeader
 import ua.naiksoftware.stomp.dto.StompMessage
-
-
-
 data class MessageLite(
     val writer: String,
     val message : String
@@ -80,7 +77,9 @@ fun ChatView(
         val response = getMessages(context, roomId.toInt())
         if (response != null) {
             messages = response.reversed()
-            listState.scrollToItem(messages.size - 1)
+            if (messages.isNotEmpty()) {
+                listState.scrollToItem(messages.size - 1)
+            }
         }
         stompClient.topic("/topic/room/${roomId}").subscribe { topicMessage ->
             Log.d(TAG, topicMessage.payload)
@@ -98,7 +97,9 @@ fun ChatView(
             println(newMessage)
             messages = messages + newMessage
             coroutineScope.launch {
-                listState.scrollToItem(messages.size - 1)
+                if (messages.isNotEmpty()) {
+                    listState.scrollToItem(messages.size - 1)
+                }
             }
         }
 
