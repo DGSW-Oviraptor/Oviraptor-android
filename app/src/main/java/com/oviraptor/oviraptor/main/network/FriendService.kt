@@ -13,7 +13,7 @@ interface FriendService {
         @Header("Authorization") token: String,
     ): GetFriendsResponse
 
-    @POST("user/friends/add")
+    @POST("user/friends")
     suspend fun addFriend(
         @Header("Authorization") token: String,
         @Query("email") email: String
