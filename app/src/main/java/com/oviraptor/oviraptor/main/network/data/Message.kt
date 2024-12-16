@@ -5,5 +5,5 @@ data class Message (
     val room : String,
     val writer : String,
     val content : String,
-    val isMine : Boolean
+    val mine : Boolean
 )

@@ -92,7 +92,7 @@ fun ChatView(
                 room = room?.name ?: "",
                 writer = newMessageLite.writer,
                 content = newMessageLite.message,
-                isMine = newMessageLite.writer == getUserName(context)
+                mine = newMessageLite.writer == getUserName(context)
             )
             println(newMessage)
             messages = messages + newMessage
@@ -213,7 +213,7 @@ fun MessageItem(
     Column (
         Modifier
             .fillMaxWidth(),
-        horizontalAlignment = if (item.isMine){
+        horizontalAlignment = if (item.mine){
             Alignment.End
         }
         else {
@@ -223,7 +223,7 @@ fun MessageItem(
         Text(
             modifier = Modifier
                 .align(
-                    if (item.isMine){
+                    if (item.mine){
                         Alignment.End
                     }
                     else {
@@ -235,14 +235,14 @@ fun MessageItem(
         Box(modifier = Modifier
             .fillMaxSize(0.5f)
             .align(
-                if (item.isMine) {
+                if (item.mine) {
                     Alignment.End
                 } else {
                     Alignment.Start
                 }
             )
             .background(
-                if (item.isMine) {
+                if (item.mine) {
                     Color.Green
                 } else {
                     Color.Gray
