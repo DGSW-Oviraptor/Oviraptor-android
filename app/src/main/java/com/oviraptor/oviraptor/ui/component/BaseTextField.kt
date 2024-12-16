@@ -5,20 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -29,9 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,35 +49,24 @@ fun BaseTextField(
     borderColor: Color = Color(0xFFE1E1E1)
 ){
     var showPassword by remember { mutableStateOf(false) }
-    var hidePasswordIcon by remember { mutableIntStateOf(value = R.drawable.show_password) }
-    Box(
+    Box (
         modifier = modifier
             .padding(horizontal = 18.dp)
             .fillMaxWidth()
             .height(50.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(Color(0xFFFAFAFA))
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(5.dp)
-            )
+            .border(1.dp, color = borderColor, shape = RoundedCornerShape(5.dp)),
     ) {
         BasicTextField(
+            singleLine = true,
+            modifier = Modifier
+                .padding(start = 12.dp)
+                .align(Alignment.CenterStart)
+                .fillMaxSize(),
             value = text,
             onValueChange = onTextChange,
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .height(250.dp)
-                .offset(x = 14.dp),
-            textStyle = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = pretendard,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            ),
-            singleLine = true,
             keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Go,
                 keyboardType = keyboardType
             ),
             decorationBox = { innerTextField ->
@@ -90,62 +75,60 @@ fun BaseTextField(
                 ) {
                     if (text.isEmpty()) {
                         Text(
-                            text = placeholder,
                             fontFamily = pretendard,
+                            text = placeholder,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 14.sp,
-                            color = Color(0xFF7D7D7D)
+                            fontSize = 16.sp,
+                            color = Color.Gray
                         )
                     }
                     innerTextField()
                 }
             },
-            visualTransformation =
-                if (isPassword && !showPassword) {
-                    PasswordVisualTransformation()
-                } else {
-                    VisualTransformation.None
-                }
+            textStyle = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = pretendard,
+                fontWeight = FontWeight.Medium
+            )
         )
-        if (isPassword) {
-            Spacer(modifier = Modifier.width(8.dp))
-            Box(
-                modifier = Modifier
-                    .size(20.dp)
-                    .align(Alignment.CenterEnd)
-                    .offset(x = (-12).dp),
-            ) {
-                Image(
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable {
-                            showPassword = !showPassword
-                            hidePasswordIcon = R.drawable.not_show_password
-                        },
-                    painter = painterResource(id = if (showPassword) R.drawable.not_show_password else R.drawable.show_password),
-                    contentDescription = "Toggle password visibility",
-                )
-            }
-        }
         if (isButton){
             Box(
                 modifier = Modifier
-                    .offset(x = (-13).dp)
+                    .padding(end = 12.dp)
                     .size(50.dp,30.dp)
-                    .clip(RoundedCornerShape(5.dp))
                     .align(Alignment.CenterEnd)
-                    .background(buttonColor)
                     .clickable { onClick() }
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(buttonColor),
             ){
                 Text(
-                    modifier = Modifier.align(Alignment.Center),
                     text = buttonText,
-                    fontFamily = pretendard,
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.White,
                     fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.White
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
+        }
+        if (isPassword){
+            Image(
+                modifier = Modifier
+                    .padding(end = 12.dp)
+                    .align(Alignment.CenterEnd)
+                    .clickable {
+                        showPassword = !showPassword
+                    },
+                painter = painterResource(
+                    if (showPassword) {
+                        R.drawable.show_password
+                    }
+                    else {
+                        R.drawable.not_show_password
+                    }
+                ),
+                contentDescription = ""
+            )
         }
     }
 }
